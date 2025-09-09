@@ -79,5 +79,28 @@ namespace BookDemo.Controllers
                 return BadRequest(ex.Message);// 500
             }
         }
+        
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteOneBook([FromRoute(Name = "id")] int id)
+        {
+            try
+            {
+                var existingBook = ApplicationContext
+                    .Books
+                    .Where(b => b.Id.Equals(id))
+                    .SingleOrDefault();
+                if (existingBook == null)
+                {
+                    return NotFound(); // 404
+                }
+
+                ApplicationContext.Books.Remove(existingBook);
+                return NoContent(); // 204
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);// 500
+            }
+        }
     }
 }
