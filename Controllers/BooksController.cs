@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BookDemo.Models;
+using BookDemo.Data;
 
 namespace BookDemo.Controllers
 {
@@ -11,13 +13,13 @@ namespace BookDemo.Controllers
         [HttpGet]
         public IActionResult GetAllBooks()
         {
-            return Ok(Data.ApplicationContext.Books);
+            return Ok(ApplicationContext.Books);
         }
         
         [HttpGet("{id:int}")]
-        public IActionResult GetBookById([FromRoute(Name = "Id")] int id)
+        public IActionResult GetBookById([FromRoute(Name = "id")] int id)
         {
-            var book = Data.ApplicationContext
+            var book = ApplicationContext
                 .Books
                 .Where(b => b.Id.Equals(id))
                 .SingleOrDefault();
@@ -27,6 +29,55 @@ namespace BookDemo.Controllers
             }
             else return Ok(book);
         }
-        
+
+        [HttpPost]
+        public IActionResult CreateOneBook([FromBody] Book book)
+        {
+            try
+            {
+                if (book == null)
+                {
+                    return BadRequest(); // 400
+                }
+                ApplicationContext.Books.Add(book);
+                return StatusCode(201, book);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);// 500
+            }
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id , [FromBody] Book book)
+        {
+            try
+            {
+                if (book == null || !id.Equals(book.Id))
+                {
+                    return BadRequest(); // 400
+                }
+                var existingBook = ApplicationContext
+                    .Books
+                    .Where(b => b.Id.Equals(id))
+                    .SingleOrDefault();
+
+                if (existingBook == null)
+                {
+                    return NotFound(); // 404
+                }
+
+                existingBook.Title = book.Title;
+                existingBook.Author = book.Author;
+                existingBook.YearPublished = book.YearPublished;
+
+                return Ok(existingBook);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);// 500
+            }
+        }
     }
 }
