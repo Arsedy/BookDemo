@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using BookDemo.Models;
 using BookDemo.Data;
 
@@ -9,7 +8,6 @@ namespace BookDemo.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        
         [HttpGet]
         public IActionResult GetAllBooks()
         {
@@ -39,6 +37,7 @@ namespace BookDemo.Controllers
                 {
                     return BadRequest(); // 400
                 }
+                book.Id = ApplicationContext.nextId++;  // auto-increment + Prevent Id tampering
                 ApplicationContext.Books.Add(book);
                 return StatusCode(201, book);
             }

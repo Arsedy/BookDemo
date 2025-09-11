@@ -1,4 +1,5 @@
 ﻿using BookDemo.Models;
+using System.Security.Cryptography.X509Certificates;
 namespace BookDemo.Data
 {
     public static class ApplicationContext
@@ -13,5 +14,6 @@ namespace BookDemo.Data
                 new Book { Id = 3, Title = "1984", Author = "George Orwell", YearPublished = 1949 }
             };
         }
+        public static int nextId = 4;
     }
 }
