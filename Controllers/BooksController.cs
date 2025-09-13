@@ -4,102 +4,91 @@ using BookDemo.Data;
 
 namespace BookDemo.Controllers
 {
-    [Route("api/books")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetAllBooks()
+        private readonly ApplicationContext _context;
+
+        public BooksController(ApplicationContext context)
         {
-            return Ok(ApplicationContext.Books);
+            _context = context;
         }
         
-        [HttpGet("{id:int}")]
-        public IActionResult GetBookById([FromRoute(Name = "id")] int id)
+        [HttpGet]
+        public IActionResult GetBooks()
         {
-            var book = ApplicationContext
-                .Books
-                .Where(b => b.Id.Equals(id))
-                .SingleOrDefault();
-            if (book == null) 
+            var books = _context.Books.ToList();
+            return Ok(books); // Returns a 200 OK response with the list of books
+        }
+        
+        [HttpGet("{id}")]
+        public IActionResult GetOneBook(int id)
+        {
+            var book = _context.Books.Find(id); // Finds a book by its ID from the database
+            if (book == null)
             {
-                return NotFound();// 404
+                return NotFound(); // Returns a 404 Not Found response if the book doesn't exist
             }
-            else return Ok(book);
+            return Ok(book); // Returns a 200 OK response with the book details
         }
 
         [HttpPost]
-        public IActionResult CreateOneBook([FromBody] Book book)
+        public IActionResult CreateBook([FromBody] Book book)
         {
-            try
+            if (book == null)
             {
-                if (book == null)
-                {
-                    return BadRequest(); // 400
-                }
-                book.Id = ApplicationContext.nextId++;  // auto-increment + Prevent Id tampering
-                ApplicationContext.Books.Add(book);
-                return StatusCode(201, book);
+                return BadRequest(); // Returns a 400 Bad Request response if the book is null
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);// 500
-            }
-        }
-
-        [HttpPut("{id:int}")]
-        public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id , [FromBody] Book book)
-        {
-            try
-            {
-                if (book == null || !id.Equals(book.Id))
-                {
-                    return BadRequest(); // 400
-                }
-                var existingBook = ApplicationContext
-                    .Books
-                    .Where(b => b.Id.Equals(id))
-                    .SingleOrDefault();
-
-                if (existingBook == null)
-                {
-                    return NotFound(); // 404
-                }
-
-                existingBook.Title = book.Title;
-                existingBook.Author = book.Author;
-                existingBook.YearPublished = book.YearPublished;
-
-                return Ok(existingBook);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);// 500
-            }
+            _context.Books.Add(book); // Adds the new book to the database context
+            _context.SaveChanges(); // Saves changes to the database
+            return CreatedAtAction(nameof(GetOneBook), new { id = book.Id }, book); // Returns a 201 Created response with the location of the new book
         }
         
-        [HttpDelete("{id:int}")]
-        public IActionResult DeleteOneBook([FromRoute(Name = "id")] int id)
+        [HttpPut("{id}")]
+        public IActionResult UpdateBook(int id, [FromBody] Book updatedBook)
         {
-            try
+            if (updatedBook == null || updatedBook.Id != id)
             {
-                var existingBook = ApplicationContext
-                    .Books
-                    .Where(b => b.Id.Equals(id))
-                    .SingleOrDefault();
-                if (existingBook == null)
-                {
-                    return NotFound(); // 404
-                }
+                return BadRequest(); // Returns a 400 Bad Request response if the book is null or IDs don't match
+            }
+            var existingBook = _context.Books.Find(id);
+            if (existingBook == null)
+            {
+                return NotFound(); // Returns a 404 Not Found response if the book doesn't exist
+            }
+            existingBook.Title = updatedBook.Title;
+            existingBook.Author = updatedBook.Author;
+            existingBook.YearPublished = updatedBook.YearPublished;
+            _context.Books.Update(existingBook); // Updates the existing book in the database context
+            _context.SaveChanges(); // Saves changes to the database
+            return Ok(existingBook);// Returns a 200 OK response with the updated book details
+        }
 
-                ApplicationContext.Books.Remove(existingBook);
-                return NoContent(); // 204
-            }
-            catch (Exception ex)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            var book = _context.Books.Find(id);
+            if (book == null)
             {
-                return BadRequest(ex.Message);// 500
+                return NotFound(); // Returns a 404 Not Found response if the book doesn't exist
             }
+            _context.Books.Remove(book); // Removes the book from the database context
+            _context.SaveChanges(); // Saves changes to the database
+            return Ok(GetBooks()); // Returns a 200 OK response with the list of remaining books
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteAllBooks()
+        {
+            var books = _context.Books.ToList();
+            if (books.Count == 0)
+            {
+                return NotFound(); // Returns a 404 Not Found response if there are no books to delete
+            }
+            _context.Books.RemoveRange(books); // Removes all books from the database context
+            _context.SaveChanges(); // Saves changes to the database
+            return Ok("All books have been deleted."); // Returns a 200 OK response confirming deletion
         }
     }
 }
