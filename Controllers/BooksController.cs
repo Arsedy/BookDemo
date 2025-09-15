@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BookDemo.Models;
+using Entities.Models;
 using BookDemo.Data;
 
 namespace BookDemo.Controllers

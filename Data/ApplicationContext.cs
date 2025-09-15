@@ -1,5 +1,5 @@
 ﻿using BookDemo.Data.Config;
-using BookDemo.Models;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 namespace BookDemo.Data
