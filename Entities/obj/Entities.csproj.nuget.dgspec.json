@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\areno\\source\\repos\\Entities\\Entities.csproj": {}
+    "C:\\Users\\areno\\source\\repos\\BookDemoSolition\\Entities\\Entities.csproj": {}
   },
   "projects": {
-    "C:\\Users\\areno\\source\\repos\\Entities\\Entities.csproj": {
+    "C:\\Users\\areno\\source\\repos\\BookDemoSolition\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\areno\\source\\repos\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\areno\\source\\repos\\BookDemoSolition\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\areno\\source\\repos\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\areno\\source\\repos\\BookDemoSolition\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\areno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\areno\\source\\repos\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\areno\\source\\repos\\BookDemoSolition\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
