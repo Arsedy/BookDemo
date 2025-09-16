@@ -21,20 +21,33 @@ Entity Framework Core ile **SQL Server veritabanı** üzerinden CRUD (Create, Re
 ## 📂 Proje Yapısı
 
 BookDemo
+
 │── Entities
+
 │ └── Models
+
 │ └── Book.cs # Kitap model sınıfı
-│
-│── Web API
-│ ├── Controllers
-│ │ └── BooksController.cs # Kitap CRUD API
+
+││── Web API
+
+│├── Controllers
+
+│ │└── BooksController.cs # Kitap CRUD API
+
 │ ├── Data
+
 │ │ ├── ApplicationContext.cs # EF Core DbContext
+
 │ │ └── Config
+
 │ │ └── BookConfig.cs # Entity yapılandırmaları
+
 │ ├── Migrations # EF Core Migration dosyaları
+
 │ ├── appsettings.json # Veritabanı connection string ayarları
+
 │ └── Program.cs # API başlangıç noktası
+
 
 ---
 
