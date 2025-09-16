@@ -1,4 +1,4 @@
-﻿##BookDemo Projesi
+﻿## BookDemo Projesi
 
 Bu proje, **ASP.NET Core Web API** kullanılarak geliştirilmiş basit bir kitap yönetim sistemidir.  
 Entity Framework Core ile **SQL Server veritabanı** üzerinden CRUD (Create, Read, Update, Delete) işlemleri yapılabilmektedir.
