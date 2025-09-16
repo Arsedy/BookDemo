@@ -90,5 +90,6 @@ namespace BookDemo.Controllers
             _context.SaveChanges(); // Saves changes to the database
             return Ok("All books have been deleted."); // Returns a 200 OK response confirming deletion
         }
+        
     }
 }
