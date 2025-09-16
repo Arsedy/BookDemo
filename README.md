@@ -73,9 +73,7 @@ BookDemo
 Veritabanı bağlantısını yapılandırın
 appsettings.json içinde connection string ayarlayın:
 
-"ConnectionStrings": {
-    "sqlConnection": "Data Source =(localdb)\\MSSQLLocalDB; Initial Catalog = BooksApp; Integrated Security = true ;"
-  }
+"sqlConnection": "Data Source =(localdb)\\MSSQLLocalDB; Initial Catalog = BooksApp; Integrated Security = true ;"
 
 2. **Programı Başlatma** : "BookDemo.sln" tıklayın ve projeyi başlatın Swagger UI açılcaktır. 
 
