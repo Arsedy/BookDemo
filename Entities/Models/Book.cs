@@ -12,5 +12,6 @@ namespace Entities.Models
         public String Title { get; set; }
         public String Author { get; set; }
         public int YearPublished { get; set; }
+        
     }
 }
