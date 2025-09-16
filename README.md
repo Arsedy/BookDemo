@@ -70,22 +70,22 @@ BookDemo
    ```bash
    git clone https://github.com/Arsedy/BookDemo.git
    cd BookDemo
-Veritabanı bağlantısını yapılandırın
-appsettings.json içinde connection string ayarlayın:
+  - Veritabanı bağlantısını yapılandırın
+  - appsettings.json içinde connection string ayarlayın:
 
-"sqlConnection": "Data Source =(localdb)\\MSSQLLocalDB; Initial Catalog = BooksApp; Integrated Security = true ;"
+  - "sqlConnection": "Data Source =(localdb)\\MSSQLLocalDB; Initial Catalog = BooksApp; Integrated Security = true ;"
 
 2. **Programı Başlatma** : "BookDemo.sln" tıklayın ve projeyi başlatın Swagger UI açılcaktır. 
 
-Migration çalıştırın ve veritabanını oluşturun
+  - Migration çalıştırın ve veritabanını oluşturun
 
-Swagger UI üzerinden test edin
+  - Swagger UI üzerinden test edin
 
 📌 Notlar
-Bu proje öğrenme amaçlı geliştirilmiştir.
+- Bu proje öğrenme amaçlı geliştirilmiştir.
 
-Entity Framework Core ile Code-First yaklaşımı kullanılmıştır.
+- Entity Framework Core ile Code-First yaklaşımı kullanılmıştır.
 
-Migration dosyaları Migrations klasöründe tutulmaktadır.
+- Migration dosyaları Migrations klasöründe tutulmaktadır.
 
-API dokümantasyonu Swagger (OpenAPI) ile otomatik olarak oluşturulmaktadır.
+- API dokümantasyonu Swagger (OpenAPI) ile otomatik olarak oluşturulmaktadır.
